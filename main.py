@@ -1,0 +1,58 @@
+from grid import Grid
+
+valid_user_selections = 'xXoO'
+
+def gather_user_input():
+    x = 0
+    y = 0
+    while True:
+        try:
+            x = int(input('Enter your desired x coordinate: '))
+            if x < 0:  # Avoid issues with negative indexes being used
+                raise ValueError
+            y = int(input('Enter your desired y coordinate: '))
+            if y < 0:
+                raise ValueError
+        except ValueError:
+            print('Invalid input.')
+        else:
+            break
+    return x, y
+
+if __name__ == '__main__':
+    
+    main_grid = Grid()
+    
+    user_selection = 'z'
+    while user_selection not in valid_user_selections:
+        user_selection = input('Enter your desired character (x or o): ')
+    user_selection = user_selection.upper()
+    if user_selection == 'X':
+        user_char = 'X'
+        computer_char = 'O'
+    else:
+        user_char = 'O'
+        computer_char = 'X'
+    
+    current_move = 'X'
+    win, winner = main_grid.determine_win(user_char, computer_char)
+    while not win:
+        if current_move = user_char:
+            print('= Grid =')
+            print(main_grid)
+            x, y = gather_user_input()
+            while not main_grid.make_move(x, y, user_char):
+                print('Invalid input.')
+                x, y = gather_user_input()
+            current_move = computer_char
+        elif current_move == computer_char:
+            current_move = user_char
+        win, winner = main_grid.determine_win(user_char, computer_char)
+    
+    print(main_grid)
+    if winner == computer_char:
+        print('The computer won.')
+    elif winner == user_char:
+        print('You won.')
+    elif winner == 'T':
+        print('Tie.')
