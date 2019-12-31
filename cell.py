@@ -23,3 +23,11 @@ class Cell:
     
     def change_contents(self, char):
         self.contents == char
+    
+    def contents_as_num(self):
+        if self.contents == 'E':
+            return '0'
+        elif self.contents == 'X':
+            return '1'
+        elif self.contents == 'O':
+            return '2'
