@@ -13,13 +13,16 @@ class Computer:
         self.used_board_states = []
         self.file = file
         self.char = char
-        with open(self.file, 'r') as weights:
-            for line in weights:
-                grid, freq, total, weight = line.split(', ')
-                weight = float(weight.replace('\n', ''))
-                freq = float(freq)
-                total = float(total)
-                self.available_board_states[grid] = (freq, total, weight)
+        try:
+            with open(self.file, 'r') as weights:
+                for line in weights:
+                    grid, freq, total, weight = line.split(', ')
+                    weight = float(weight.replace('\n', ''))
+                    freq = float(freq)
+                    total = float(total)
+                    self.available_board_states[grid] = (freq, total, weight)
+        except FileNotFoundError:
+            print('Given file not found. Creating new file.')
         # open(self.file, 'w').close()
     
     def get_weight(self, grid, board_state):

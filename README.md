@@ -5,5 +5,5 @@ This program uses Python to implement an automated tic tac toe program based on 
 ## Usage
 
 ```
-python3 main.py [.csv file argument]
+python3 main.py [.csv file]
 ```

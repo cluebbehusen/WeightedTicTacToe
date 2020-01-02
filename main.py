@@ -1,5 +1,7 @@
-from grid import Grid
 from computer import Computer
+from grid import Grid
+
+import sys
 
 valid_user_selections = 'xXoO'
 
@@ -23,6 +25,13 @@ def gather_user_input():
 
 if __name__ == '__main__':
     
+    if len(sys.argv) != 2:
+        print('Invalid usage.')
+        print('Usage: python3 main.py [.csv file]')
+        sys.exit(1)
+    else:
+        csv_file = sys.argv[1]
+    
     main_grid = Grid()
     
     user_selection = 'z'
@@ -36,7 +45,7 @@ if __name__ == '__main__':
         user_char = 'O'
         computer_char = 'X'
     
-    computer = Computer("weights.csv", computer_char)
+    computer = Computer(csv_file, computer_char)
     
     current_move = 'X'
     win, winner = main_grid.check_win(user_char, computer_char)
