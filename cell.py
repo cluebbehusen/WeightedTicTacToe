@@ -22,12 +22,12 @@ class Cell:
         return False
     
     def change_contents(self, char):
-        self.contents == char
+        self.contents = char
     
-    def contents_as_num(self):
+    def contents_as_num(self, computer_char):
         if self.contents == 'E':
             return '0'
-        elif self.contents == 'X':
+        elif self.contents == computer_char:
             return '1'
-        elif self.contents == 'O':
+        else:
             return '2'

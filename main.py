@@ -1,4 +1,5 @@
 from grid import Grid
+from computer import Computer
 
 valid_user_selections = 'xXoO'
 
@@ -34,10 +35,12 @@ if __name__ == '__main__':
         user_char = 'O'
         computer_char = 'X'
     
+    computer = Computer("weights.csv", computer_char)
+    
     current_move = 'X'
-    win, winner = main_grid.determine_win(user_char, computer_char)
+    win, winner = main_grid.check_win(user_char, computer_char)
     while not win:
-        if current_move = user_char:
+        if current_move == user_char:
             print('= Grid =')
             print(main_grid)
             x, y = gather_user_input()
@@ -46,13 +49,18 @@ if __name__ == '__main__':
                 x, y = gather_user_input()
             current_move = computer_char
         elif current_move == computer_char:
+            computer.make_move(main_grid)
             current_move = user_char
-        win, winner = main_grid.determine_win(user_char, computer_char)
+        win, winner = main_grid.check_win(user_char, computer_char)
     
     print(main_grid)
     if winner == computer_char:
         print('The computer won.')
+        computer.update_csv('W')
     elif winner == user_char:
         print('You won.')
+        computer.update_csv('L')
     elif winner == 'T':
         print('Tie.')
+        computer.update_csv('T')
+    
