@@ -32,13 +32,15 @@ class Grid:
             return False
     
     def remove_move(self, x, y, player):
-        pass
-        # May not be needed
+        if not self.grid[x][y].is_empty():
+            self.grid[x][y].change_contents('E')
+            return True
+        return False
     
     def check_row_win(self, player):
         for row in self.grid:
             if (row[0].does_match(player) and row[1].does_match(player) and
-                row[2].does_match(player))
+                row[2].does_match(player)):
                 return True
         return False
     
@@ -73,9 +75,16 @@ class Grid:
         if (self.check_row_win(player) or self.check_col_win(player) or
             self.check_diag_win(player)):
             return (True, player)
-        if (self.check_row_win(computer) or self.check_col_win(player) or
-            self.check_diag_win(player)):
+        if (self.check_row_win(computer) or self.check_col_win(computer) or
+            self.check_diag_win(computer)):
             return (True, computer)
-        if check_full:
+        if self.check_full():
             return (True, 'T')
         return (False, 'Z')
+    
+    def get_board_state(self, computer_char):
+        return_string = ''
+        for row in self.grid:
+            for cell in row:
+                return_string += cell.contents_as_num(computer_char)
+        return return_string
