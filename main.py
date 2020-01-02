@@ -4,6 +4,7 @@ from computer import Computer
 valid_user_selections = 'xXoO'
 
 def gather_user_input():
+    """Gathers coordinates from user and determines validity."""
     x = 0
     y = 0
     while True:

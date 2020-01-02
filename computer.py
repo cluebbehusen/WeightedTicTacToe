@@ -1,9 +1,14 @@
 import random
 
+AGGRESSION_VALUE = .6  # This value determines the willingness of the computer
+                       #    to play moves it has never encountered before.
+                       #    It must be a number between 0 and 1
+
 class Computer:
     """Makes move based off csv file and updates it accordingly"""
     
     def __init__(self, file, char):
+        """Initializes dictionary of past used moves and their weights."""
         self.available_board_states = dict()
         self.used_board_states = []
         self.file = file
@@ -22,7 +27,7 @@ class Computer:
         if board_state in self.available_board_states:
             return self.available_board_states[board_state][2]
         else:
-            return .6
+            return AGGRESSION_VALUE
     
     def make_move(self, grid):
         """Makes move on grid based on weights of each possible move."""
@@ -57,6 +62,7 @@ class Computer:
                         grid.remove_move(ii, jj, self.char)
         
     def update_csv(self, ending_condition):
+        """Updates .csv file at end of game based on game outcome."""
         if ending_condition == 'W':
             w_num = 1.0
         elif ending_condition == 'T':
