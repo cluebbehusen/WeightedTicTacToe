@@ -45,7 +45,7 @@ if __name__ == '__main__':
         user_char = 'O'
         computer_char = 'X'
     
-    computer = Computer(csv_file, computer_char)
+    computer = Computer(csv_file, computer_char, False)
     
     current_move = 'X'
     win, winner = main_grid.check_win(user_char, computer_char)

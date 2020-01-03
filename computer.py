@@ -7,12 +7,13 @@ AGGRESSION_VALUE = .6  # This value determines the willingness of the computer
 class Computer:
     """Makes move based off csv file and updates it accordingly"""
     
-    def __init__(self, file, char):
+    def __init__(self, file, char, training):
         """Initializes dictionary of past used moves and their weights."""
         self.available_board_states = dict()
         self.used_board_states = []
         self.file = file
         self.char = char
+        self.training = training
         try:
             with open(self.file, 'r') as weights:
                 for line in weights:
@@ -28,6 +29,9 @@ class Computer:
     def get_weight(self, grid, board_state):
         """Gathers the weight of a potential move"""
         if board_state in self.available_board_states:
+            if (self.available_board_states[board_state][1] > 50 and
+                self.training):
+                return 0
             return self.available_board_states[board_state][2]
         else:
             return AGGRESSION_VALUE
@@ -57,9 +61,11 @@ class Computer:
         for ii in range(0, 3):
             for jj in range(0, 3):
                 if grid.make_move(ii, jj, self.char):
-                    if grid.get_board_state(self.char) == move:
-                        self.available_board_states[move] = (0, 0, .6)
+                    board_state = grid.get_board_state(self.char)
+                    if board_state == move:
                         self.used_board_states.append(move)
+                        if board_state not in self.available_board_states:
+                            self.available_board_states[board_state] = (0, 0, 0)
                         return
                     else:
                         grid.remove_move(ii, jj, self.char)
