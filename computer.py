@@ -57,9 +57,11 @@ class Computer:
         for ii in range(0, 3):
             for jj in range(0, 3):
                 if grid.make_move(ii, jj, self.char):
-                    if grid.get_board_state(self.char) == move:
-                        self.available_board_states[move] = (0, 0, .6)
+                    board_state = grid.get_board_state(self.char)
+                    if board_state == move:
                         self.used_board_states.append(move)
+                        if board_state not in self.available_board_states:
+                            self.available_board_states[board_state] = (0, 0, 0)
                         return
                     else:
                         grid.remove_move(ii, jj, self.char)
