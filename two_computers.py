@@ -28,8 +28,8 @@ while games_played < num_games:
         computer1_char = 'O'
         computer2_char = 'X'
     
-    computer1 = Computer(csv_file1, computer1_char)
-    computer2 = Computer(csv_file2, computer2_char)
+    computer1 = Computer(csv_file1, computer1_char, True)
+    computer2 = Computer(csv_file2, computer2_char, True)
     
     current_move = 'X'
     win, winner = main_grid.check_win(computer1_char, computer2_char)
@@ -46,16 +46,16 @@ while games_played < num_games:
         win, winner = main_grid.check_win(computer1_char, computer2_char)
     
     if winner == computer1_char:
-        print('Computer 1 won.')
+        # print('Computer 1 won.')
         computer1.update_csv('W')
         computer2.update_csv('L')
     elif winner == computer2_char:
-        print('Computer 2 won.')
+        # print('Computer 2 won.')
         computer1.update_csv('L')
         computer2.update_csv('W')
     elif winner == 'T':
-        print('Tie.')
+        # print('Tie.')
         computer1.update_csv('T')
         computer2.update_csv('T')
     games_played += 1
-    print('Played games: {}/{}'.format(games_played, num_games))
+    # print('Played games: {}/{}'.format(games_played, num_games))
